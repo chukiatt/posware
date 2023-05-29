@@ -2,11 +2,10 @@
 # SQL script to recreate JSON data for dataSource.data
 
 
-
+````
 /*
-Server: .. ไม่บอกหรอก .. <br>
-Database: PoswareDB <br>
-Run Script and copy result to update "Customer/dataSource.dat" on github repo "posware" <br>
+Server: ...
+Database: PoswareDB
 */
 
 USE PoswareDB
@@ -29,8 +28,16 @@ BEGIN
 END
 
 SELECT '{ '+@JSON+ '}' 
+````
 
 
 
+================== <br>
 
+จากนั้น copy query result เพื่อไปใส่ใน body ของ https://localhost:7030/encrypText <br>
+ 
+ใช้โปรแกรม Postman method POST ใส่ URL  "https://localhost:7030/encrypText" <br>
+paste data  ลงในส่วนของ body กำหนดเป็น Text <br>
 
+run แล้วเอา ผลลัพธ์ที่ได้ทำการ Encryt แล้วไปไว้ในไฟล์ "Customer/dataSource.dat" on github repo "posware" <br>
+ 
