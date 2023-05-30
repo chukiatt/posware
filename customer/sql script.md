@@ -3,9 +3,11 @@
 
 
 ````
+
 /*
-Server: ...
+Server: 
 Database: PoswareDB
+Run Script and copy result to update "Customer/dataSource.dat" on github repo "posware"
 */
 
 USE PoswareDB
@@ -16,21 +18,24 @@ UPDATE DatabaseIdentities SET NodeName = REPLACE(NodeName,'"',''),  DatabaseConn
 DECLARE @Table TABLE (RowNo int, Value varchar(1000))
 
 INSERT @Table
-SELECT ROW_NUMBER() OVER(ORDER BY LicenseID) RowNo, '"'+DatabaseID+'": {"LicenseID": '+Str(LicenseID)+', "NodeName": "'+NodeName+'", "ConnectionString": "'+DatabaseConnection+'" }, ' Value FROM DatabaseIdentities
+SELECT ROW_NUMBER() OVER(ORDER BY LicenseID) RowNo, '"'+DatabaseID+'": {"LicenseID": '+Str(LicenseID)+', "NodeName": "'+NodeName+'", "ConnectionString": "'+DatabaseConnection+'" } ' Value FROM DatabaseIdentities
 
 DECLARE @i int = 1
 DECLARE @n int = (SELECT COUNT(*) FROM @Table)
 DECLARE @Value varchar(1000)
 DECLARE @JSON varchar(max) = '';
+DECLARE @comma varchar(1) = ',';
 
-WHILE @i < @n 
+WHILE @i <= @n 
 BEGIN
 	SET @Value = (SELECT Value FROM @Table WHERE RowNo = @i)
-	SET @JSON = @JSON + @Value
+	SET @JSON = @JSON + @Value + IIF(@i < @n, @comma, '')
 	SET @i = @i + 1
 END
 
 SELECT '{ '+@JSON+ '}' 
+
+
 ````
 
 
