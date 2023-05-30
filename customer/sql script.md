@@ -10,6 +10,9 @@ Database: PoswareDB
 
 USE PoswareDB
 
+-- JSON String Not allow '"' qoute
+UPDATE DatabaseIdentities SET NodeName = REPLACE(NodeName,'"',''),  DatabaseConnection = REPLACE(DatabaseConnection,'"','')
+
 DECLARE @Table TABLE (RowNo int, Value varchar(1000))
 
 INSERT @Table
