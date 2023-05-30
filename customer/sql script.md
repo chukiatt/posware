@@ -13,7 +13,7 @@ Run Script and copy result to update "Customer/dataSource.dat" on github repo "p
 USE PoswareDB
 
 -- JSON String Not allow '"' qoute
-UPDATE DatabaseIdentities SET NodeName = REPLACE(NodeName,'"',''),  DatabaseConnection = REPLACE(DatabaseConnection,'"','')
+UPDATE DatabaseIdentities SET DatabaseID=UPPER(DatabaseID), NodeName = REPLACE(NodeName,'"',''),  DatabaseConnection = REPLACE(DatabaseConnection,'"','')
 
 DECLARE @Table TABLE (RowNo int, Value varchar(1000))
 
